@@ -1,7 +1,0 @@
-[
-  { "hour": 0, "reality": "Normal conditions", "pulsenet": "Monitoring" },
-  { "hour": 1, "reality": "Heavy rainfall begins", "pulsenet": "Alert issued" },
-  { "hour": 2, "reality": "River level rising", "pulsenet": "Evacuation suggested" },
-  { "hour": 3, "reality": "Landslide reported", "pulsenet": "Rescue teams dispatched" }
-  // ... up to 48 steps
-]
