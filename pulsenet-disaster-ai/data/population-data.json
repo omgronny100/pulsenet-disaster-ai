@@ -1,0 +1,6 @@
+[
+  { "village": "Kedarnath", "population": 612, "vulnerability": 0.92 },
+  { "village": "Gaurikund", "population": 1200, "vulnerability": 0.75 },
+  { "village": "Sonprayag", "population": 950, "vulnerability": 0.68 }
+  // ... up to 500 villages
+]

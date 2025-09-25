@@ -1,0 +1,11 @@
+{
+  "days": [
+    { "date": "2025-09-19", "precipitation": 12, "temperature": 18 },
+    { "date": "2025-09-20", "precipitation": 25, "temperature": 16 },
+    { "date": "2025-09-21", "precipitation": 8, "temperature": 19 },
+    { "date": "2025-09-22", "precipitation": 0, "temperature": 21 },
+    { "date": "2025-09-23", "precipitation": 5, "temperature": 20 },
+    { "date": "2025-09-24", "precipitation": 30, "temperature": 15 },
+    { "date": "2025-09-25", "precipitation": 10, "temperature": 17 }
+  ]
+}

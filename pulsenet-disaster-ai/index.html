@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseNet: AI Powered Disaster Prediction & Response Network</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0A4A99">
+    <meta name="description" content="Enterprise-grade AI-powered disaster prediction and response network for Uttarakhand. Real-time landslide and flash flood monitoring with multi-language emergency alerts.">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="pulsenet-logo">
+                <div class="pulse-wave">
+                    <div class="wave wave-1"></div>
+                    <div class="wave wave-2"></div>
+                    <div class="wave wave-3"></div>
+                </div>
+                <h1>PulseNet</h1>
+                <p class="tagline">AI Powered Disaster Prediction & Response Network</p>
+                <div class="loading-stats">
+                    <div class="stat">
+                        <span class="number" data-target="500">0</span>
+                        <span class="label">Villages Protected</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number" data-target="95">0</span>
+                        <span class="label">AI Accuracy %</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number" data-target="24">0</span>
+                        <span class="label">Hours Monitoring</span>
+                    </div>
+                </div>
+            </div>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+                <div class="progress-text">Initializing AI Models...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="app" class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <div class="pulse-mini">
+                            <div class="mini-wave"></div>
+                            <div class="mini-wave"></div>
+                        </div>
+                    </div>
+                    <div class="logo-text">
+                        <h1 class="app-title">PulseNet</h1>
+                        <span class="app-subtitle">Disaster Intelligence Network</span>
+                    </div>
+                </div>
+                <div class="header-controls">
+                    <div class="live-status">
+                        <div class="status-indicator active"></div>
+                        <span class="status-text">Live Monitoring</span>
+                    </div>
+                    <div class="alert-summary">
+                        <div class="alert-level critical" data-count="3">
+                            <span class="alert-icon">🚨</span>
+                            <span class="alert-number">3</span>
+                        </div>
+                        <div class="alert-level high" data-count="7">
+                            <span class="alert-icon">⚠️</span>
+                            <span class="alert-number">7</span>
+                        </div>
+                    </div>
+                    <button class="emergency-button" onclick="triggerEmergencyAlert()">
+                        <span class="emergency-icon">📞</span>
+                        Emergency
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Emergency Alert Banner -->
+        <div id="emergencyBanner" class="emergency-banner hidden">
+            <div class="banner-content">
+                <div class="alert-animation">
+                    <div class="alert-pulse"></div>
+                    <span class="alert-emoji">🚨</span>
+                </div>
+                <div class="alert-message">
+                    <strong class="alert-title">CRITICAL ALERT: Landslide Warning - Kedarnath Valley</strong>
+                    <p class="alert-description">
+                        Heavy rainfall detected. Landslide probability: 85%. Immediate evacuation recommended for 12 villages.
+                        <span class="alert-time">2 minutes ago</span>
+                    </p>
+                </div>
+                <div class="alert-actions">
+                    <button class="alert-btn primary" onclick="showKedarnatDetails()">View Details</button>
+                    <button class="alert-btn secondary" onclick="shareAlert()">Share Alert</button>
+                    <button class="alert-btn close" onclick="dismissAlert()">×</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Navigation Tabs -->
+            <nav class="tab-navigation">
+                <button class="tab-btn active" data-tab="dashboard" onclick="switchTab('dashboard')">
+                    <span class="tab-icon">📊</span>
+                    <span class="tab-label">Dashboard</span>
+                </button>
+                <button class="tab-btn" data-tab="map" onclick="switchTab('map')">
+                    <span class="tab-icon">🗺️</span>
+                    <span class="tab-label">Live Map</span>
+                </button>
+                <button class="tab-btn" data-tab="kedarnath" onclick="switchTab('kedarnath')">
+                    <span class="tab-icon">🏔️</span>
+                    <span class="tab-label">2013 Kedarnath</span>
+                </button>
+                <button class="tab-btn" data-tab="alerts" onclick="switchTab('alerts')">
+                    <span class="tab-icon">🚨</span>
+                    <span class="tab-label">Alerts</span>
+                    <span class="tab-badge">10</span>
+                </button>
+                <button class="tab-btn" data-tab="response" onclick="switchTab('response')">
+                    <span class="tab-icon">🚁</span>
+                    <span class="tab-label">Response</span>
+                </button>
+            </nav>
+
+            <!-- Dashboard Tab -->
+            <section id="dashboard" class="tab-content active">
+                <!-- Hero Section -->
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Protecting Uttarakhand with AI Intelligence</h1>
+                        <p class="hero-description">
+                            Advanced disaster prediction system monitoring 500+ villages across Uttarakhand. 
+                            Real-time landslide and flash flood alerts with 95% AI accuracy.
+                        </p>
+                        <div class="hero-actions">
+                            <button class="cta-button primary" onclick="switchTab('map')">
+                                <span class="btn-icon">🗺️</span>
+                                Explore Live Map
+                            </button>
+                            <button class="cta-button secondary" onclick="switchTab('kedarnath')">
+                                <span class="btn-icon">🏔️</span>
+                                2013 Kedarnath Analysis
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="impact-metrics">
+                            <div class="metric-card primary">
+                                <div class="metric-icon">👥</div>
+                                <div class="metric-value" data-animate="2400000">0</div>
+                                <div class="metric-label">Lives Protected</div>
+                            </div>
+                            <div class="metric-card success">
+                                <div class="metric-icon">🏔️</div>
+                                <div class="metric-value" data-animate="500">0</div>
+                                <div class="metric-label">Villages Monitored</div>
+                            </div>
+                            <div class="metric-card warning">
+                                <div class="metric-icon">⚡</div>
+                                <div class="metric-value" data-animate="15">0</div>
+                                <div class="metric-label">Seconds Alert Time</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistics Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card ai-confidence">
+                        <div class="card-header">
+                            <h3>AI Prediction Confidence</h3>
+                            <div class="confidence-ring">
+                                <svg class="ring-progress" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="45" class="ring-bg"/>
+                                    <circle cx="50" cy="50" r="45" class="ring-fill" style="stroke-dasharray: 283; stroke-dashoffset: 28.3;"/>
+                                </svg>
+                                <div class="ring-value">95%</div>
+                            </div>
+                        </div>
+                        <div class="confidence-factors">
+                            <div class="factor">
+                                <span class="factor-name">Weather Data</span>
+                                <div class="factor-bar">
+                                    <div class="bar-fill" style="width: 92%"></div>
+                                </div>
+                                <span class="factor-value">92%</span>
+                            </div>
+                            <div class="factor">
+                                <span class="factor-name">Terrain Analysis</span>
+                                <div class="factor-bar">
+                                    <div class="bar-fill" style="width: 88%"></div>
+                                </div>
+                                <span class="factor-value">88%</span>
+                            </div>
+                            <div class="factor">
+                                <span class="factor-name">Historical Patterns</span>
+                                <div class="factor-bar">
+                                    <div class="bar-fill" style="width: 96%"></div>
+                                </div>
+                                <span class="factor-value">96%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card disaster-breakdown">
+                        <div class="card-header">
+                            <h3>Active Risk Zones</h3>
+                            <span class="total-count">47 Active</span>
+                        </div>
+                        <div class="risk-categories">
+                            <div class="risk-item critical">
+                                <div class="risk-icon">🔴</div>
+                                <div class="risk-info">
+                                    <span class="risk-type">Critical Risk</span>
+                                    <span class="risk-count">3 zones</span>
+                                </div>
+                                <div class="risk-locations">Kedarnath, Gangotri, Yamunotri</div>
+                            </div>
+                            <div class="risk-item high">
+                                <div class="risk-icon">🟠</div>
+                                <div class="risk-info">
+                                    <span class="risk-type">High Risk</span>
+                                    <span class="risk-count">7 zones</span>
+                                </div>
+                                <div class="risk-locations">Badrinath, Hemkund, Govindghat</div>
+                            </div>
+                            <div class="risk-item medium">
+                                <div class="risk-icon">🟡</div>
+                                <div class="risk-info">
+                                    <span class="risk-type">Medium Risk</span>
+                                    <span class="risk-count">15 zones</span>
+                                </div>
+                                <div class="risk-locations">Rishikesh, Haridwar, Dehradun</div>
+                            </div>
+                            <div class="risk-item low">
+                                <div class="risk-icon">🟢</div>
+                                <div class="risk-info">
+                                    <span class="risk-type">Low Risk</span>
+                                    <span class="risk-count">22 zones</span>
+                                </div>
+                                <div class="risk-locations">Plains regions</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card real-time-data">
+                        <div class="card-header">
+                            <h3>Real-Time Monitoring</h3>
+                            <div class="live-indicator">
+                                <div class="pulse-dot"></div>
+                                <span>Live</span>
+                            </div>
+                        </div>
+                        <div class="monitoring-grid">
+                            <div class="monitor-item">
+                                <div class="monitor-icon">🌧️</div>
+                                <div class="monitor-data">
+                                    <span class="data-value">127mm</span>
+                                    <span class="data-label">Rainfall (24h)</span>
+                                    <span class="data-trend up">↑ 340%</span>
+                                </div>
+                            </div>
+                            <div class="monitor-item">
+                                <div class="monitor-icon">📊</div>
+                                <div class="monitor-data">
+                                    <span class="data-value">2.3°</span>
+                                    <span class="data-label">Soil Instability</span>
+                                    <span class="data-trend warning">⚠️ High</span>
+                                </div>
+                            </div>
+                            <div class="monitor-item">
+                                <div class="monitor-icon">🌊</div>
+                                <div class="monitor-data">
+                                    <span class="data-value">847 m³/s</span>
+                                    <span class="data-label">River Flow</span>
+                                    <span class="data-trend critical">🚨 Critical</span>
+                                </div>
+                            </div>
+                            <div class="monitor-item">
+                                <div class="monitor-icon">📱</div>
+                                <div class="monitor-data">
+                                    <span class="data-value">24,847</span>
+                                    <span class="data-label">People Alerted</span>
+                                    <span class="data-trend">Last hour</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Predictions Timeline -->
+                <div class="timeline-section">
+                    <div class="section-header">
+                        <h2>Recent AI Predictions</h2>
+                        <div class="timeline-controls">
+                            <button class="timeline-btn active" data-period="6h">6 Hours</button>
+                            <button class="timeline-btn" data-period="24h">24 Hours</button>
+                            <button class="timeline-btn" data-period="7d">7 Days</button>
+                        </div>
+                    </div>
+                    <div class="timeline-container">
+                        <div class="timeline-item critical" data-time="14:23">
+                            <div class="timeline-marker critical">
+                                <span class="marker-icon">🚨</span>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="event-header">
+                                    <h4>Critical Landslide Warning - Kedarnath Valley</h4>
+                                    <span class="event-time">14:23 IST</span>
+                                </div>
+                                <p class="event-description">AI detected 85% probability of major landslide. 12 villages evacuated successfully.</p>
+                                <div class="event-metrics">
+                                    <span class="metric">👥 2,847 people evacuated</span>
+                                    <span class="metric">⏱️ 8 minutes response time</span>
+                                    <span class="metric">🎯 95% confidence</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item high" data-time="12:45">
+                            <div class="timeline-marker high">
+                                <span class="marker-icon">⚠️</span>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="event-header">
+                                    <h4>Flash Flood Alert - Alaknanda River</h4>
+                                    <span class="event-time">12:45 IST</span>
+                                </div>
+                                <p class="event-description">Sudden water level rise detected. Riverside communities alerted via SMS.</p>
+                                <div class="event-metrics">
+                                    <span class="metric">📱 15,432 SMS sent</span>
+                                    <span class="metric">🚁 3 rescue teams dispatched</span>
+                                    <span class="metric">🎯 92% confidence</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item medium" data-time="09:15">
+                            <div class="timeline-marker medium">
+                                <span class="marker-icon">🟡</span>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="event-header">
+                                    <h4>Weather Pattern Change - Char Dham Route</h4>
+                                    <span class="event-time">09:15 IST</span>
+                                </div>
+                                <p class="event-description">Monsoon intensification predicted. Tourist advisories issued for pilgrimage routes.</p>
+                                <div class="event-metrics">
+                                    <span class="metric">🏔️ 47 monitoring points</span>
+                                    <span class="metric">📢 Tourist alerts active</span>
+                                    <span class="metric">🎯 88% confidence</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Live Map Tab -->
+            <section id="map" class="tab-content">
+                <div class="map-header">
+                    <div class="map-title">
+                        <h2>Real-Time Disaster Risk Map</h2>
+                        <p>Live monitoring of landslide and flash flood risks across Uttarakhand</p>
+                    </div>
+                    <div class="map-stats">
+                        <div class="map-stat">
+                            <span class="stat-number" id="activeMarkers">127</span>
+                            <span class="stat-label">Active Sensors</span>
+                        </div>
+                        <div class="map-stat">
+                            <span class="stat-number">95%</span>
+                            <span class="stat-label">Coverage</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-controls">
+                    <div class="control-group">
+                        <h4>Risk Types</h4>
+                        <div class="control-buttons">
+                            <button class="control-btn active" data-filter="all">
+                                <span class="btn-icon">🌐</span>All Risks
+                            </button>
+                            <button class="control-btn" data-filter="landslide">
+                                <span class="btn-icon">⛰️</span>Landslides
+                            </button>
+                            <button class="control-btn" data-filter="flood">
+                                <span class="btn-icon">🌊</span>Flash Floods
+                            </button>
+                            <button class="control-btn" data-filter="weather">
+                                <span class="btn-icon">⛈️</span>Weather
+                            </button>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <h4>Time Range</h4>
+                        <div class="time-slider-container">
+                            <input type="range" id="timeSlider" class="time-slider" min="0" max="72" value="0">
+                            <div class="time-labels">
+                                <span class="time-label">Now</span>
+                                <span class="time-label">+24h</span>
+                                <span class="time-label">+48h</span>
+                                <span class="time-label">+72h</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-container">
+                    <div id="uttarakhandMap" class="disaster-map"></div>
+                    <div class="map-overlay-controls">
+                        <button class="map-control fullscreen" title="Fullscreen">⛶</button>
+                        <button class="map-control layers" title="Layers">📋</button>
+                        <button class="map-control location" title="My Location">📍</button>
+                    </div>
+                </div>
+
+                <div class="map-legend">
+                    <h4>Risk Levels & Symbols</h4>
+                    <div class="legend-grid">
+                        <div class="legend-category">
+                            <h5>Landslide Risk</h5>
+                            <div class="legend-items">
+                                <div class="legend-item">
+                                    <span class="legend-symbol landslide critical">⛰️</span>
+                                    <span>Critical (>80%)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-symbol landslide high">⛰️</span>
+                                    <span>High (60-80%)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-symbol landslide medium">⛰️</span>
+                                    <span>Medium (40-60%)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="legend-category">
+                            <h5>Flash Flood Risk</h5>
+                            <div class="legend-items">
+                                <div class="legend-item">
+                                    <span class="legend-symbol flood critical">🌊</span>
+                                    <span>Critical (>80%)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-symbol flood high">🌊</span>
+                                    <span>High (60-80%)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-symbol flood medium">🌊</span>
+                                    <span>Medium (40-60%)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="legend-category">
+                            <h5>Infrastructure</h5>
+                            <div class="legend-items">
+                                <div class="legend-item">
+                                    <span class="legend-symbol infrastructure">🏥</span>
+                                    <span>Hospitals</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-symbol infrastructure">🚁</span>
+                                    <span>Rescue Centers</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-symbol infrastructure">🏫</span>
+                                    <span>Evacuation Centers</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2013 Kedarnath Tab -->
+            <section id="kedarnath" class="tab-content">
+                <div class="kedarnath-header">
+                    <div class="historical-title">
+                        <h2>2013 Kedarnath Tragedy: How PulseNet Would Have Prevented It</h2>
+                        <p class="tragedy-stats">
+                            <span class="stat-item">📅 June 16-17, 2013</span>
+                            <span class="stat-item">💔 5,700+ lives lost</span>
+                            <span class="stat-item">🏠 4,200 villages affected</span>
+                            <span class="stat-item">💰 ₹12,000+ crores damage</span>
+                        </p>
+                    </div>
+                    <div class="prevention-impact">
+                        <div class="impact-card lives-saved">
+                            <h3>Lives That Could Be Saved</h3>
+                            <div class="big-number">5,200+</div>
+                            <p>With 6-hour early warning</p>
+                        </div>
+                        <div class="impact-card damage-prevented">
+                            <h3>Damage Prevented</h3>
+                            <div class="big-number">₹8,500 Cr</div>
+                            <p>Through timely evacuation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Comparison -->
+                <div class="timeline-comparison">
+                    <div class="comparison-header">
+                        <h3>Hour-by-Hour Analysis: Reality vs PulseNet Response</h3>
+                        <div class="timeline-play-controls">
+                            <button class="play-btn" onclick="playTimeline()">▶️ Play Timeline</button>
+                            <button class="pause-btn hidden" onclick="pauseTimeline()">⏸️ Pause</button>
+                            <div class="speed-controls">
+                                <button class="speed-btn" data-speed="1">1x</button>
+                                <button class="speed-btn active" data-speed="5">5x</button>
+                                <button class="speed-btn" data-speed="10">10x</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dual-timeline">
+                        <div class="timeline-track reality">
+                            <h4>What Actually Happened</h4>
+                            <div class="timeline-events" id="realityTimeline">
+                                <!-- Events will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="timeline-track pulsenet">
+                            <h4>With PulseNet AI System</h4>
+                            <div class="timeline-events" id="pulsenetTimeline">
+                                <!-- Events will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-scrubber">
+                        <input type="range" id="timelineScrubber" class="scrubber" min="0" max="48" value="0">
+                        <div class="scrubber-labels">
+                            <span>June 15, 18:00</span>
+                            <span>June 16, 06:00</span>
+                            <span>June 16, 18:00</span>
+                            <span>June 17, 06:00</span>
+                            <span>June 17, 18:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Analysis Panel -->
+                <div class="ai-analysis-panel">
+                    <div class="panel-header">
+                        <h3>AI Prediction Analysis for June 2013</h3>
+                        <div class="analysis-status">
+                            <span class="status-indicator success"></span>
+                            <span>Analysis Complete</span>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-grid">
+                        <div class="analysis-card weather-data">
+                            <h4>🌧️ Weather Conditions</h4>
+                            <div class="weather-metrics">
+                                <div class="metric">
+                                    <span class="label">Rainfall (48h)</span>
+                                    <span class="value critical">385mm</span>
+                                    <span class="threshold">Critical: >200mm</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="label">Cloud Burst Intensity</span>
+                                    <span class="value critical">75mm/hr</span>
+                                    <span class="threshold">Extreme: >50mm/hr</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="label">Temperature Drop</span>
+                                    <span class="value high">12°C</span>
+                                    <span class="threshold">Warning: >8°C</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="analysis-card terrain-analysis">
+                            <h4>⛰️ Terrain & Geological Factors</h4>
+                            <div class="terrain-factors">
+                                <div class="factor">
+                                    <span class="factor-name">Slope Stability</span>
+                                    <div class="factor-bar">
+                                        <div class="bar-fill critical" style="width: 15%"></div>
+                                    </div>
+                                    <span class="factor-status critical">Critical</span>
+                                </div>
+                                <div class="factor">
+                                    <span class="factor-name">Soil Saturation</span>
+                                    <div class="factor-bar">
+                                        <div class="bar-fill critical" style="width: 92%"></div>
+                                    </div>
+                                    <span class="factor-status critical">92%</span>
+                                </div>
+                                <div class="factor">
+                                    <span class="factor-name">Rock Formation</span>
+                                    <div class="factor-bar">
+                                        <div class="bar-fill high" style="width: 78%"></div>
+                                    </div>
+                                    <span class="factor-status high">Unstable</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="analysis-card prediction-confidence">
+                            <h4>🎯 AI Prediction Confidence</h4>
+                            <div class="prediction-breakdown">
+                                <div class="prediction-item">
+                                    <div class="prediction-type">Landslide Probability</div>
+                                    <div class="prediction-value critical">94%</div>
+                                    <div class="prediction-timeline">Within 6 hours</div>
+                                </div>
+                                <div class="prediction-item">
+                                    <div class="prediction-type">Flash Flood Risk</div>
+                                    <div class="prediction-value critical">89%</div>
+                                    <div class="prediction-timeline">Within 4 hours</div>
+                                </div>
+                                <div class="prediction-item">
+                                    <div class="prediction-type">Infrastructure Damage</div>
+                                    <div class="prediction-value high">76%</div>
+                                    <div class="prediction-timeline">Severe impact</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ai-explanation">
+                        <h4>🤖 AI Reasoning Explanation</h4>
+                        <div class="explanation-text">
+                            <p><strong>Primary Risk Factors Detected:</strong></p>
+                            <ul>
+                                <li><strong>Extreme Precipitation:</strong> 385mm rainfall in 48 hours exceeded the critical threshold by 92%. Historical data shows this level of rainfall has caused landslides in 96% of similar cases.</li>
+                                <li><strong>Geological Vulnerability:</strong> Kedarnath valley's steep terrain (>45° slopes) combined with loose sedimentary rock formation creates high landslide susceptibility during heavy rainfall.</li>
+                                <li><strong>Soil Saturation:</strong> Ground moisture sensors would have detected 92% soil saturation - well beyond the 70% danger threshold.</li>
+                                <li><strong>Temperature Gradient:</strong> Sudden 12°C temperature drop indicated severe weather system capable of producing extreme precipitation.</li>
+                            </ul>
+                            <p><strong>AI Conclusion:</strong> Multiple converging risk factors would have triggered a CRITICAL alert 6-8 hours before the disaster, allowing for systematic evacuation of the entire Kedarnath valley.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success Metrics -->
+                <div class="success-metrics">
+                    <div class="metrics-header">
+                        <h3>Projected Success Metrics with PulseNet</h3>
+                        <p>Conservative estimates based on historical disaster response data</p>
+                    </div>
+                    <div class="metrics-comparison">
+                        <div class="metric-item">
+                            <div class="metric-icon">👥</div>
+                            <div class="metric-data">
+                                <span class="metric-title">Lives Saved</span>
+                                <div class="metric-comparison">
+                                    <span class="before">Reality: 5,700+ deaths</span>
+                                    <span class="after success">PulseNet: ~500 casualties</span>
+                                </div>
+                                <span class="improvement">91% reduction in casualties</span>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-icon">💰</div>
+                            <div class="metric-data">
+                                <span class="metric-title">Economic Impact</span>
+                                <div class="metric-comparison">
+                                    <span class="before">Reality: ₹12,000 Cr loss</span>
+                                    <span class="after success">PulseNet: ₹3,500 Cr loss</span>
+                                </div>
+                                <span class="improvement">₹8,500 Cr damage prevented</span>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-icon">🏠</div>
+                            <div class="metric-data">
+                                <span class="metric-title">Displacement</span>
+                                <div class="metric-comparison">
+                                    <span class="before">Reality: 110,000 people</span>
+                                    <span class="after success">PulseNet: 45,000 people</span>
+                                </div>
+                                <span class="improvement">59% reduction in displacement</span>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-icon">⏰</div>
+                            <div class="metric-data">
+                                <span class="metric-title">Response Time</span>
+                                <div class="metric-comparison">
+                                    <span class="before">Reality: 48+ hours</span>
+                                    <span class="after success">PulseNet: 2-4 hours</span>
+                                </div>
+                                <span class="improvement">92% faster response</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Alerts Tab -->
+            <section id="alerts" class="tab-content">
+                <div class="alerts-header">
+                    <div class="alerts-title">
+                        <h2>Emergency Alerts & Notifications</h2>
+                        <p>Real-time disaster alerts for Uttarakhand region</p>
+                    </div>
+                    <div class="alerts-summary">
+                        <div class="summary-item critical">
+                            <span class="count">3</span>
+                            <span class="label">Critical</span>
+                        </div>
+                        <div class="summary-item high">
+                            <span class="count">7</span>
+                            <span class="label">High</span>
+                        </div>
+                        <div class="summary-item medium">
+                            <span class="count">15</span>
+                            <span class="label">Medium</span>
+                        </div>
+                        <div class="summary-item low">
+                            <span class="count">8</span>
+                            <span class="label">Low</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alerts-controls">
+                    <div class="filter-controls">
+                        <select id="alertFilter" class="alert-filter">
+                            <option value="all">All Alerts</option>
+                            <option value="critical">Critical Only</option>
+                            <option value="landslide">Landslide Alerts</option>
+                            <option value="flood">Flash Flood Alerts</option>
+                            <option value="weather">Weather Warnings</option>
+                        </select>
+                        <select id="locationFilter" class="alert-filter">
+                            <option value="all">All Locations</option>
+                            <option value="kedarnath">Kedarnath Valley</option>
+                            <option value="badrinath">Badrinath</option>
+                            <option value="gangotri">Gangotri</option>
+                            <option value="yamunotri">Yamunotri</option>
+                        </select>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="action-btn primary" onclick="broadcastAlert()">
+                            <span class="btn-icon">📢</span>
+                            Broadcast Alert
+                        </button>
+                        <button class="action-btn secondary" onclick="exportAlerts()">
+                            <span class="btn-icon">💾</span>
+                            Export Alerts
+                        </button>
+                    </div>
+                </div>
+
+                <div class="alerts-list" id="alertsList">
+                    <!-- Alerts will be populated by JavaScript -->
+                </div>
+
+                <div class="emergency-contacts">
+                    <div class="contacts-header">
+                        <h3>Emergency Response Contacts</h3>
+                        <p>Quick access to emergency services and disaster management authorities</p>
+                    </div>
+                    <div class="contacts-grid">
+                        <div class="contact-card priority">
+                            <div class="contact-icon">🚨</div>
+                            <div class="contact-info">
+                                <h4>National Emergency</h4>
+                                <div class="contact-number">112</div>
+                                <p>All emergencies - Police, Fire, Medical</p>
+                            </div>
+                            <button class="contact-btn" onclick="callEmergency('112')">Call Now</button>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon">🌊</div>
+                            <div class="contact-info">
+                                <h4>NDRF Uttarakhand</h4>
+                                <div class="contact-number">+91-135-2763600</div>
+                                <p>National Disaster Response Force</p>
+                            </div>
+                            <button class="contact-btn" onclick="callEmergency('+91-135-2763600')">Call Now</button>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon">🏥</div>
+                            <div class="contact-info">
+                                <h4>State Emergency</h4>
+                                <div class="contact-number">+91-135-2710033</div>
+                                <p>Uttarakhand Emergency Operations</p>
+                            </div>
+                            <button class="contact-btn" onclick="callEmergency('+91-135-2710033')">Call Now</button>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon">🚁</div>
+                            <div class="contact-info">
+                                <h4>Air Rescue</h4>
+                                <div class="contact-number">+91-135-2525870</div>
+                                <p>Helicopter rescue operations</p>
+                            </div>
+                            <button class="contact-btn" onclick="callEmergency('+91-135-2525870')">Call Now</button>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon">⛰️</div>
+                            <div class="contact-info">
+                                <h4>Char Dham Authority</h4>
+                                <div class="contact-number">+91-135-2714894</div>
+                                <p>Pilgrimage route emergencies</p>
+                            </div>
+                            <button class="contact-btn" onclick="callEmergency('+91-135-2714894')">Call Now</button>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon">📡</div>
+                            <div class="contact-info">
+                                <h4>IMD Dehradun</h4>
+                                <div class="contact-number">+91-135-2753016</div>
+                                <p>Weather emergency updates</p>
+                            </div>
+                            <button class="contact-btn" onclick="callEmergency('+91-135-2753016')">Call Now</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Response Tab -->
+            <section id="response" class="tab-content">
+                <div class="response-header">
+                    <div class="response-title">
+                        <h2>Disaster Response Coordination</h2>
+                        <p>Multi-agency response coordination and resource management</p>
+                    </div>
+                    <div class="response-status">
+                        <div class="status-indicator active"></div>
+                        <span>Response Network Active</span>
+                    </div>
+                </div>
+
+                <div class="response-dashboard">
+                    <div class="response-stats">
+                        <div class="response-stat">
+                            <div class="stat-icon">🚁</div>
+                            <div class="stat-data">
+                                <span class="stat-number">12</span>
+                                <span class="stat-label">Rescue Teams</span>
+                                <span class="stat-status active">Active</span>
+                            </div>
+                        </div>
+                        <div class="response-stat">
+                            <div class="stat-icon">🏥</div>
+                            <div class="stat-data">
+                                <span class="stat-number">24</span>
+                                <span class="stat-label">Medical Units</span>
+                                <span class="stat-status ready">Ready</span>
+                            </div>
+                        </div>
+                        <div class="response-stat">
+                            <div class="stat-icon">🚛</div>
+                            <div class="stat-data">
+                                <span class="stat-number">47</span>
+                                <span class="stat-label">Supply Vehicles</span>
+                                <span class="stat-status deployed">Deployed</span>
+                            </div>
+                        </div>
+                        <div class="response-stat">
+                            <div class="stat-icon">🏫</div>
+                            <div class="stat-data">
+                                <span class="stat-number">156</span>
+                                <span class="stat-label">Evacuation Centers</span>
+                                <span class="stat-status active">Active</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="active-operations">
+                        <h3>Active Operations</h3>
+                        <div class="operations-list">
+                            <div class="operation-card priority">
+                                <div class="operation-header">
+                                    <div class="operation-info">
+                                        <h4>Operation Kedarnath Rescue</h4>
+                                        <span class="operation-status critical">Critical Priority</span>
+                                    </div>
+                                    <div class="operation-time">Started 2h ago</div>
+                                </div>
+                                <div class="operation-details">
+                                    <p>Mass evacuation of 12 villages due to imminent landslide threat</p>
+                                    <div class="operation-metrics">
+                                        <span class="metric">👥 2,847 evacuated</span>
+                                        <span class="metric">🚁 6 helicopters deployed</span>
+                                        <span class="metric">🏥 3 medical teams</span>
+                                        <span class="metric">⏱️ ETA: 4 hours</span>
+                                    </div>
+                                </div>
+                                <div class="operation-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 65%"></div>
+                                    </div>
+                                    <span class="progress-text">65% Complete</span>
+                                </div>
+                            </div>
+
+                            <div class="operation-card high">
+                                <div class="operation-header">
+                                    <div class="operation-info">
+                                        <h4>Alaknanda River Monitoring</h4>
+                                        <span class="operation-status high">High Priority</span>
+                                    </div>
+                                    <div class="operation-time">Ongoing</div>
+                                </div>
+                                <div class="operation-details">
+                                    <p>Continuous monitoring of water levels and flood risk assessment</p>
+                                    <div class="operation-metrics">
+                                        <span class="metric">📊 15 sensors active</span>
+                                        <span class="metric">🌊 Water level: 4.2m</span>
+                                        <span class="metric">⚠️ Flood risk: Medium</span>
+                                        <span class="metric">📱 Communities alerted</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="operation-card medium">
+                                <div class="operation-header">
+                                    <div class="operation-info">
+                                        <h4>Supply Distribution - Badrinath</h4>
+                                        <span class="operation-status medium">Medium Priority</span>
+                                    </div>
+                                    <div class="operation-time">6h remaining</div>
+                                </div>
+                                <div class="operation-details">
+                                    <p>Emergency supplies delivery to stranded pilgrims</p>
+                                    <div class="operation-metrics">
+                                        <span class="metric">📦 50 tons supplies</span>
+                                        <span class="metric">👥 1,200 people</span>
+                                        <span class="metric">🚛 8 vehicles</span>
+                                        <span class="metric">🛣️ Route clear</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resource-allocation">
+                        <h3>Resource Allocation</h3>
+                        <div class="resources-grid">
+                            <div class="resource-category">
+                                <h4>🚁 Rescue Assets</h4>
+                                <div class="resource-items">
+                                    <div class="resource-item">
+                                        <span class="resource-name">IAF Helicopters</span>
+                                        <span class="resource-count available">6/8 Available</span>
+                                    </div>
+                                    <div class="resource-item">
+                                        <span class="resource-name">NDRF Teams</span>
+                                        <span class="resource-count deployed">8/12 Deployed</span>
+                                    </div>
+                                    <div class="resource-item">
+                                        <span class="resource-name">Ground Vehicles</span>
+                                        <span class="resource-count available">23/30 Available</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="resource-category">
+                                <h4>🏥 Medical Resources</h4>
+                                <div class="resource-items">
+                                    <div class="resource-item">
+                                        <span class="resource-name">Medical Teams</span>
+                                        <span class="resource-count available">18/24 Available</span>
+                                    </div>
+                                    <div class="resource-item">
+                                        <span class="resource-name">Ambulances</span>
+                                        <span class="resource-count available">31/40 Available</span>
+                                    </div>
+                                    <div class="resource-item">
+                                        <span class="resource-name">Hospital Beds</span>
+                                        <span class="resource-count available">247/320 Available</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="resource-category">
+                                <h4>🏫 Evacuation Centers</h4>
+                                <div class="resource-items">
+                                    <div class="resource-item">
+                                        <span class="resource-name">Schools</span>
+                                        <span class="resource-count active">45 Active</span>
+                                    </div>
+                                    <div class="resource-item">
+                                        <span class="resource-name">Community Centers</span>
+                                        <span class="resource-count active">67 Active</span>
+                                    </div>
+                                    <div class="resource-item">
+                                        <span class="resource-name">Capacity</span>
+                                        <span class="resource-count available">45,000 people</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Mobile Bottom Navigation -->
+        <nav class="mobile-nav">
+            <button class="nav-btn active" data-tab="dashboard" onclick="switchTab('dashboard')">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Dashboard</span>
+            </button>
+            <button class="nav-btn" data-tab="map" onclick="switchTab('map')">
+                <span class="nav-icon">🗺️</span>
+                <span class="nav-label">Map</span>
+            </button>
+            <button class="nav-btn" data-tab="kedarnath" onclick="switchTab('kedarnath')">
+                <span class="nav-icon">🏔️</span>
+                <span class="nav-label">2013</span>
+            </button>
+            <button class="nav-btn" data-tab="alerts" onclick="switchTab('alerts')">
+                <span class="nav-icon">🚨</span>
+                <span class="nav-label">Alerts</span>
+                <span class="nav-badge">10</span>
+            </button>
+            <button class="nav-btn" data-tab="response" onclick="switchTab('response')">
+                <span class="nav-icon">🚁</span>
+                <span class="nav-label">Response</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/ai-prediction-engine.js"></script>
+    <script src="js/disaster-response-network.js"></script>
+    <script src="js/uttarakhand-map.js"></script>
+    <script src="js/kedarnath-replay.js"></script>
+    <script src="js/mobile-pwa.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
