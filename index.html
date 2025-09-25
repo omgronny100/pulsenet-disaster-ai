@@ -4,11 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PulseNet: AI Powered Disaster Prediction & Response Network</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./manifest.json">
+    
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#0A4A99">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/apple-touch-icon-152x152.png">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0A4A99">
-    <meta name="description" content="Enterprise-grade AI-powered disaster prediction and response network for Uttarakhand. Real-time landslide and flash flood monitoring with multi-language emergency alerts.">
+    
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/ai-prediction-engine.js"></script>
+    <script src="js/disaster-response-network.js"></script>
+    <script src="js/uttarakhand-map.js"></script>
+    <script src="js/kedarnath-replay.js"></script>
+    <script src="js/mobile-pwa.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
     <!-- Loading Screen -->
@@ -1030,16 +1055,5 @@
             </button>
         </nav>
     </div>
-
-    <!-- Scripts -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/ai-prediction-engine.js"></script>
-    <script src="js/disaster-response-network.js"></script>
-    <script src="js/uttarakhand-map.js"></script>
-    <script src="js/kedarnath-replay.js"></script>
-    <script src="js/mobile-pwa.js"></script>
-    <script src="js/main.js"></script>
 </body>
 </html>
